@@ -1,7 +1,24 @@
 import { Container, Text, VStack, Box, HStack, Link, Button, Heading, Stack, Flex, IconButton } from "@chakra-ui/react";
+import { useState, useEffect } from 'react';
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
 const Index = () => {
+  const [recommendedMatches, setRecommendedMatches] = useState([]);
+
+  const fetchRecommendedMatches = () => {
+    // Dummy data for recommended matches
+    const dummyMatches = [
+      { id: 1, name: 'Match 1', age: 25, gender: 'Female', interests: ['Hiking', 'Reading'] },
+      { id: 2, name: 'Match 2', age: 30, gender: 'Male', interests: ['Cooking', 'Traveling'] },
+      { id: 3, name: 'Match 3', age: 28, gender: 'Female', interests: ['Painting', 'Music'] },
+    ];
+    setRecommendedMatches(dummyMatches);
+  };
+
+  useEffect(() => {
+    fetchRecommendedMatches();
+  }, []);
+
   return (
     <Container maxW="container.xl" p={0}>
       {/* Navigation Bar */}
@@ -41,6 +58,21 @@ const Index = () => {
           <Text fontSize="lg">"This is the best service ever!" - Customer A</Text>
           <Text fontSize="lg">"I can't imagine my life without it." - Customer B</Text>
           <Text fontSize="lg">"Absolutely wonderful experience." - Customer C</Text>
+        </VStack>
+      </Box>
+
+      {/* Recommended Matches Section */}
+      <Box as="section" bg="gray.100" py={20} px={8}>
+        <Heading as="h2" size="xl" mb={8} textAlign="center">Recommended Matches</Heading>
+        <VStack spacing={8}>
+          {recommendedMatches.map((match) => (
+            <Box key={match.id} borderWidth="1px" borderRadius="lg" p={4}>
+              <Text>Name: {match.name}</Text>
+              <Text>Age: {match.age}</Text>
+              <Text>Gender: {match.gender}</Text>
+              <Text>Interests: {match.interests.join(', ')}</Text>
+            </Box>
+          ))}
         </VStack>
       </Box>
 
